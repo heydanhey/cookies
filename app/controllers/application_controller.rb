@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   include ActionController::Cookies
 
   def authenticate_cookie
-    token = cookies[:jwt]
+    token = cookies.signed[:jwt]
     decoded_token = JsonWebToken.decode(token)
     if decoded_token
       user = true #User.find_by(id: decoded_token["user_id"])

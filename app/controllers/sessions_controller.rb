@@ -21,12 +21,12 @@ class SessionsController < ApplicationController
     email = params["email"]
     password = params["password"]
     if email && password
-      login_hash = {user_id: 1, name: 'dan'} #User.handle_login(email, password)
-      if login_hash
-        cookies.signed[:jwt] = {value:  login_hash[:token], httponly: true}
+      token = JsonWebToken.encode({ email: email }) #User.handle_login(email, password)
+      if token
+        cookies.signed[:jwt] = { value: token, httponly: true }
         render json: { 
-          user_id: login_hash[:user_id],
-          name: login_hash[:name],
+          user_id: email,
+          name: 'hello',
         }
       else
         render json: {status: 'incorrect email or password', code: 422}  
