@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action only: [:destroy] do 
+  before_action only: [:destroy, :access] do 
     authenticate_cookie
   end
 
